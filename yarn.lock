@@ -1596,6 +1596,13 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@mgtitimoli/react-state@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@mgtitimoli/react-state/-/react-state-0.2.1.tgz#ec08861565bf7a36c80f23513c4ae5ef22f902c0"
+  integrity sha512-lC02EVWYpXJZheeyaPy/L6QOwsn2Eh7w2CWopNCwNa06Yg89TvrSRmfLWeadKm4VyVOOS6xJqADsWhvPCVYxBg==
+  dependencies:
+    tslib "^2.0.1"
+
 "@mgtitimoli/utils-error@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@mgtitimoli/utils-error/-/utils-error-1.0.2.tgz#e37270f17a90bd1e0bc182fceb10cc994cd5289a"
