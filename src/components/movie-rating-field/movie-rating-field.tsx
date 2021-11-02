@@ -63,7 +63,7 @@ const StarIconContainer = styled.li`
 
 const renderStarIconUsing = (props: Props) => (_: unknown, starIndex: number) =>
   (
-    <StarIconContainer>
+    <StarIconContainer key={starIndex}>
       {renderStarIconWithButtonIfNeeded(props, starIndex)}
     </StarIconContainer>
   );
