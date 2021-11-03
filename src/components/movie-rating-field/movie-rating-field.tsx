@@ -1,10 +1,8 @@
-import styled, {css} from "styled-components";
-import {
-  Star as StarIcon,
-  StarOutline as StarOutlineIcon
-} from "@styled-icons/material";
+import styled from "styled-components";
 
-import {UnstyledButton, UnstyledUl} from "@/components/unstyled";
+import {UnstyledUl} from "@/components/unstyled";
+
+import StarIcon from "./star-icon";
 
 type Props = {
   className?: string;
@@ -13,49 +11,15 @@ type Props = {
   starIconSize: number;
 };
 
-const iconCss = css`
-  color: rgb(255, 255, 255);
-`;
+const onMovieRatingChangeUsing =
+  ({movieRating, onMovieRatingChange}: Props, starIndex: number) =>
+  () =>
+    onMovieRatingChange?.(
+      movieRating && starIndex === movieRating - 1 ? undefined : starIndex + 1
+    );
 
-const StyledStarOutlineIcon = styled(StarOutlineIcon)`
-  ${iconCss}
-`;
-
-const renderStarOutlineIcon = ({starIconSize}: Props) => (
-  <StyledStarOutlineIcon size={starIconSize} />
-);
-
-const StarFilledIcon = styled(StarIcon)`
-  ${iconCss}
-`;
-
-const renderStarFilledIcon = ({starIconSize}: Props) => (
-  <StarFilledIcon size={starIconSize} />
-);
-
-const renderStarIcon = (props: Props, starIndex: number) =>
-  props.movieRating && starIndex <= props.movieRating - 1
-    ? renderStarFilledIcon(props)
-    : renderStarOutlineIcon(props);
-
-const onMovieRatingChangeUsing = (
-  {movieRating, onMovieRatingChange}: Props,
-  starIndex: number
-) =>
-  onMovieRatingChange?.(
-    movieRating && starIndex === movieRating - 1 ? undefined : starIndex + 1
-  );
-
-const renderStarIconWithButton = (props: Props, starIndex: number) => (
-  <UnstyledButton onClick={() => onMovieRatingChangeUsing(props, starIndex)}>
-    {renderStarIcon(props, starIndex)}
-  </UnstyledButton>
-);
-
-const renderStarIconWithButtonIfNeeded = (props: Props, starIndex: number) =>
-  props.onMovieRatingChange
-    ? renderStarIconWithButton(props, starIndex)
-    : renderStarIcon(props, starIndex);
+const isStarIconFilled = ({movieRating}: Props, starIndex: number) =>
+  movieRating !== undefined && starIndex <= movieRating - 1;
 
 const StarIconContainer = styled.li`
   margin-left: 4px;
@@ -64,7 +28,14 @@ const StarIconContainer = styled.li`
 const renderStarIconUsing = (props: Props) => (_: unknown, starIndex: number) =>
   (
     <StarIconContainer key={starIndex}>
-      {renderStarIconWithButtonIfNeeded(props, starIndex)}
+      <StarIcon
+        isFilled={isStarIconFilled(props, starIndex)}
+        onClick={
+          props.onMovieRatingChange &&
+          onMovieRatingChangeUsing(props, starIndex)
+        }
+        size={props.starIconSize}
+      />
     </StarIconContainer>
   );
 
